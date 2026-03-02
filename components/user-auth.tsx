@@ -6,14 +6,19 @@ import React from "react";
 import UserAvatar from "./user-avatar";
 import { NavbarItem } from "@heroui/navbar";
 import { useSession } from "next-auth/react";
+import { Spinner } from "@heroui/spinner";
 
 
 export default function App() {
 //   const session = await auth();
   // 和auth 区别，没有用到 cookies, 在build时，app/page.tsx 在没有其他因素影响时，变为静态渲染
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   let userInfo: React.ReactNode = null
-  if(session?.user) {
+  if(status === 'loading') {
+    userInfo = <NavbarItem>
+      <Spinner />
+    </NavbarItem>
+  }else if(session?.user) {
     userInfo = <NavbarItem>
       <UserAvatar />
     </NavbarItem>

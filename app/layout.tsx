@@ -23,8 +23,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  intercepting,
 }: Readonly<{
   children: React.ReactNode;
+  intercepting: React.ReactNode;
 }>) {
   return (
     <html lang="en" className='dark'>
@@ -35,7 +37,10 @@ export default function RootLayout({
           <TrpcProvider>
             <HeroProvider>
               <Header />
-              {children}
+              <div className="max-w-[1024px] p-6 mx-auto">
+                {children}
+              </div>
+              {intercepting}
             </HeroProvider>
           </TrpcProvider>
         </SessionProvider>
