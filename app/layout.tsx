@@ -4,6 +4,7 @@ import "./globals.css";
 import HeroProvider from "@/providers/hero-provider";
 import SessionProvider from "@/providers/session-provider";
 import Header from "@/components/header";
+import TrpcProvider from "@/providers/trpc-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,10 +32,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionProvider>
-          <HeroProvider>
-            <Header />
-            {children}
-          </HeroProvider>
+          <TrpcProvider>
+            <HeroProvider>
+              <Header />
+              {children}
+            </HeroProvider>
+          </TrpcProvider>
         </SessionProvider>
       </body>
     </html>
