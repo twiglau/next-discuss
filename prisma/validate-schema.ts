@@ -6,3 +6,4 @@ export const createTopicSchema = z.object({
     .min(5, "内容不嫩低于5位")
     .max(255, "内容长度不能多于255字符"),
 });
+export type CreateTopicType = z.infer<typeof createTopicSchema>;
