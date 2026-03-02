@@ -1,14 +1,12 @@
-import { signIn } from "@/server/auth"
+import { signInAction } from "@/actions"
+import {Button} from "@heroui/button";
  
-export function SignIn() {
+export default function SignIn() {
   return (
     <form
-      action={async () => {
-        "use server"
-        await signIn()
-      }}
+      action={signInAction}
     >
-      <button type="submit">Sign in</button>
+      <Button type="submit" color="secondary" variant="bordered">Sign in</Button>
     </form>
   )
 }

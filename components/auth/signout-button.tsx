@@ -1,14 +1,13 @@
-import { signOut } from "@/server/auth"
- 
-export function SignOut() {
+
+import {Button} from "@heroui/button"; 
+import { signOutAction } from "@/actions";
+
+export default function SignOut() {
   return (
     <form
-      action={async () => {
-        "use server"
-        await signOut()
-      }}
+      action={signOutAction}
     >
-      <button type="submit">Sign Out</button>
+      <Button type="submit" color="secondary">Sign out</Button>
     </form>
   )
 }
