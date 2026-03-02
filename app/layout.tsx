@@ -28,6 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
   intercepting: React.ReactNode;
 }>) {
+  
   return (
     <html lang="en" className='dark'>
       <body

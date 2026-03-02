@@ -1,5 +1,4 @@
-import { Button } from "@heroui/button";
-import Link from "next/link";
+import CreateButton from "@/components/create-button";
 
 
 export default async function App() {
@@ -7,11 +6,7 @@ export default async function App() {
     <div>
       <div className="flex items-center justify-between">
         <h1>话题</h1>
-        <Link href="/new">
-          <Button color="secondary" variant="bordered">
-            创建
-          </Button>
-        </Link>
+        <CreateButton />
       </div>
     </div>
   )
