@@ -88,11 +88,13 @@ model Authenticator {
 
 model Topic {
   // 字段名字  类型      属性
-  id          String   @id @default(cuid())
-  name        String   @unique
+  id          String @id @default(cuid())
+  name        String @unique
   description String
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt
+  tag         String @default("default")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt
 
   // 名称   模型   关系
   userId String

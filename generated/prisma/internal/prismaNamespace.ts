@@ -1111,6 +1111,7 @@ export const TopicScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  tag: 'tag',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'

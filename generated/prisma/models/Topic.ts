@@ -28,6 +28,7 @@ export type TopicMinAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
+  tag: string | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -37,6 +38,7 @@ export type TopicMaxAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
+  tag: string | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -46,6 +48,7 @@ export type TopicCountAggregateOutputType = {
   id: number
   name: number
   description: number
+  tag: number
   createdAt: number
   updatedAt: number
   userId: number
@@ -57,6 +60,7 @@ export type TopicMinAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  tag?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -66,6 +70,7 @@ export type TopicMaxAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  tag?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -75,6 +80,7 @@ export type TopicCountAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  tag?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -157,6 +163,7 @@ export type TopicGroupByOutputType = {
   id: string
   name: string
   description: string
+  tag: string
   createdAt: Date
   updatedAt: Date
   userId: string
@@ -187,6 +194,7 @@ export type TopicWhereInput = {
   id?: Prisma.StringFilter<"Topic"> | string
   name?: Prisma.StringFilter<"Topic"> | string
   description?: Prisma.StringFilter<"Topic"> | string
+  tag?: Prisma.StringFilter<"Topic"> | string
   createdAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
   userId?: Prisma.StringFilter<"Topic"> | string
@@ -198,6 +206,7 @@ export type TopicOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  tag?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -212,6 +221,7 @@ export type TopicWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.TopicWhereInput[]
   NOT?: Prisma.TopicWhereInput | Prisma.TopicWhereInput[]
   description?: Prisma.StringFilter<"Topic"> | string
+  tag?: Prisma.StringFilter<"Topic"> | string
   createdAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
   userId?: Prisma.StringFilter<"Topic"> | string
@@ -223,6 +233,7 @@ export type TopicOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  tag?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -238,6 +249,7 @@ export type TopicScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Topic"> | string
   name?: Prisma.StringWithAggregatesFilter<"Topic"> | string
   description?: Prisma.StringWithAggregatesFilter<"Topic"> | string
+  tag?: Prisma.StringWithAggregatesFilter<"Topic"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Topic"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Topic"> | Date | string
   userId?: Prisma.StringWithAggregatesFilter<"Topic"> | string
@@ -247,6 +259,7 @@ export type TopicCreateInput = {
   id?: string
   name: string
   description: string
+  tag?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTopicsInput
@@ -257,6 +270,7 @@ export type TopicUncheckedCreateInput = {
   id?: string
   name: string
   description: string
+  tag?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -267,6 +281,7 @@ export type TopicUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  tag?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTopicsNestedInput
@@ -277,6 +292,7 @@ export type TopicUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  tag?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -287,6 +303,7 @@ export type TopicCreateManyInput = {
   id?: string
   name: string
   description: string
+  tag?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -296,6 +313,7 @@ export type TopicUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  tag?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -304,6 +322,7 @@ export type TopicUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  tag?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -323,6 +342,7 @@ export type TopicCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  tag?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -332,6 +352,7 @@ export type TopicMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  tag?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -341,6 +362,7 @@ export type TopicMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  tag?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -411,6 +433,7 @@ export type TopicCreateWithoutUserInput = {
   id?: string
   name: string
   description: string
+  tag?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutTopicInput
@@ -420,6 +443,7 @@ export type TopicUncheckedCreateWithoutUserInput = {
   id?: string
   name: string
   description: string
+  tag?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutTopicInput
@@ -457,6 +481,7 @@ export type TopicScalarWhereInput = {
   id?: Prisma.StringFilter<"Topic"> | string
   name?: Prisma.StringFilter<"Topic"> | string
   description?: Prisma.StringFilter<"Topic"> | string
+  tag?: Prisma.StringFilter<"Topic"> | string
   createdAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
   userId?: Prisma.StringFilter<"Topic"> | string
@@ -466,6 +491,7 @@ export type TopicCreateWithoutPostsInput = {
   id?: string
   name: string
   description: string
+  tag?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTopicsInput
@@ -475,6 +501,7 @@ export type TopicUncheckedCreateWithoutPostsInput = {
   id?: string
   name: string
   description: string
+  tag?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -500,6 +527,7 @@ export type TopicUpdateWithoutPostsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  tag?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTopicsNestedInput
@@ -509,6 +537,7 @@ export type TopicUncheckedUpdateWithoutPostsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  tag?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -518,6 +547,7 @@ export type TopicCreateManyUserInput = {
   id?: string
   name: string
   description: string
+  tag?: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -526,6 +556,7 @@ export type TopicUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  tag?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutTopicNestedInput
@@ -535,6 +566,7 @@ export type TopicUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  tag?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutTopicNestedInput
@@ -544,6 +576,7 @@ export type TopicUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  tag?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -583,6 +616,7 @@ export type TopicSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   name?: boolean
   description?: boolean
+  tag?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -595,6 +629,7 @@ export type TopicSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   description?: boolean
+  tag?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -605,6 +640,7 @@ export type TopicSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   description?: boolean
+  tag?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -615,12 +651,13 @@ export type TopicSelectScalar = {
   id?: boolean
   name?: boolean
   description?: boolean
+  tag?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
 }
 
-export type TopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["topic"]>
+export type TopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "tag" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["topic"]>
 export type TopicInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   posts?: boolean | Prisma.Topic$postsArgs<ExtArgs>
@@ -643,6 +680,7 @@ export type $TopicPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: string
     name: string
     description: string
+    tag: string
     createdAt: Date
     updatedAt: Date
     userId: string
@@ -1074,6 +1112,7 @@ export interface TopicFieldRefs {
   readonly id: Prisma.FieldRef<"Topic", 'String'>
   readonly name: Prisma.FieldRef<"Topic", 'String'>
   readonly description: Prisma.FieldRef<"Topic", 'String'>
+  readonly tag: Prisma.FieldRef<"Topic", 'String'>
   readonly createdAt: Prisma.FieldRef<"Topic", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Topic", 'DateTime'>
   readonly userId: Prisma.FieldRef<"Topic", 'String'>

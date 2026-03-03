@@ -1,7 +1,7 @@
 "use client";
 
 import { createTopicSchema, type CreateTopicType } from "@/prisma/validate-schema";
-import { Alert, Button, Input, Textarea } from "@heroui/react"
+import { Alert, Button, Chip, Input, Select, SelectItem, Textarea } from "@heroui/react"
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { trpcClientReact } from "@/trpc-caller/client";
@@ -24,7 +24,8 @@ export default function NewTopicPage({isTitle = true, onClose}:NewTopicProps) {
     resolver: zodResolver(createTopicSchema),
     defaultValues: {
       name: "",
-      description: ""
+      description: "",
+      tag: "default"
     }
   })
 
@@ -61,7 +62,26 @@ export default function NewTopicPage({isTitle = true, onClose}:NewTopicProps) {
           isInvalid={fieldState.invalid}
           errorMessage={fieldState.error?.message}
           />
-
+        )}
+        />
+        <Controller
+        name="tag"
+        control={form.control}
+        render={({field, fieldState}) => (
+          <Select 
+          {...field}
+          label="标签类型"
+          labelPlacement="outside-top"
+          isInvalid={fieldState.invalid}
+          errorMessage={fieldState.error?.message}
+          >
+            <SelectItem key="default">Default</SelectItem>
+            <SelectItem key="primary">Primary</SelectItem>
+            <SelectItem key="secondary">Secondary</SelectItem>
+            <SelectItem key="success">Success</SelectItem>
+            <SelectItem key="warning">Warning</SelectItem>
+            <SelectItem key="danger">Danger</SelectItem>
+          </Select>
         )}
         />
       
