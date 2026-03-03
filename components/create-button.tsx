@@ -4,8 +4,12 @@ import { Button } from "@heroui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
+type CreateButtonProps = {
+  children:React.ReactNode;
+  path:string;
+}
 
-export default function CreateButton() {
+export default function CreateButton({children, path}: CreateButtonProps) {
   const router = useRouter()
   const { data: session } = useSession()
   const onCreate = () => {
@@ -13,11 +17,11 @@ export default function CreateButton() {
        router.replace('/api/auth/signin', {})
        return
      } 
-     router.push('/new')
+     router.push(path)
   }
   return (
     <Button color="secondary" variant="bordered"  onPress={onCreate}>
-      创建
+      {children}
     </Button>
   )
 }

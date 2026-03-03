@@ -1,53 +1,20 @@
 "use client";
 
+import React from "react";
 import { Button } from "@heroui/button"
 import { Alert } from "@heroui/alert"
 import { Input, Textarea} from "@heroui/input"
-import { trpcServerCaller } from "@/trpc-caller/server";
-import { createPostSchema } from "@/prisma/validate-schema";
-import React from "react";
-import { useSession } from "next-auth/react";
+import { createPost, type PostFormState } from "@/actions";
 
 type NewPostProps = {
   isTitle?: boolean;
   onClose?: () => void;
 }
-type FormState = {
-    errors: {
-        topicId?: string[];
-        title?: string[];
-        content?: string[];
-        _form?:string[];
-    }
-}
 
 export default function NewPostPage({isTitle = true, onClose}:NewPostProps) {
-    const {data:session} = useSession();
+ 
 
-    const onAction = async (prevStatus:FormState, formData: FormData) => {
-        "use server";
-
-        try {
-            const title = formData.get("title") as string;
-            const content = formData.get("content") as string;
-            const info = createPostSchema.safeParse({title, content});
-            if (!info.success) {
-                return { errors: info.error.flatten().fieldErrors };
-            }   
-            const result = await trpcServerCaller({session}).post.create(info.data);
-            if (result) {
-                onClose?.();
-            }
-            return {errors:{}};
-        } catch (error) {
-            if (error instanceof Error) {
-                return { errors: { _form: [error.message] } } as FormState;
-            }
-            return { errors: { _form: ["未知错误"] } } as FormState;
-        }
-    }
-
-    const [status, action, isPending] = React.useActionState<FormState, FormData>(onAction, {errors:{}});
+ const [status, action, isPending] = React.useActionState<PostFormState, FormData>(createPost, {errors:{}});
 
   
   return (

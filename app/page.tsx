@@ -8,7 +8,7 @@ export default async function App() {
       <div className="flex justify-between">
         <h1>TOP话题</h1>
         <div className="flex flex-col gap-4">
-          <CreateButton />
+          <CreateButton path="/new">创建话题</CreateButton>
           <TopicList />
         </div>
       </div>
