@@ -1,7 +1,7 @@
 "use client";
 
 import { createTopicSchema, type CreateTopicType } from "@/prisma/validate-schema";
-import { Button, Input, Textarea } from "@heroui/react"
+import { Alert, Button, Input, Textarea } from "@heroui/react"
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { trpcClientReact } from "@/trpc-caller/client";
@@ -14,17 +14,17 @@ type NewTopicProps = {
 
 export default function NewTopicPage({isTitle = true, onClose}:NewTopicProps) {
 
-  const { isPending, mutate: createTopic } = trpcClientReact.topic.create.useMutation({
-    onSuccess() {
+  const { isPending, mutate: createTopic, error } = trpcClientReact.topic.create.useMutation({
+    onSuccess(data) {
       onClose?.();
-      redirect("/");
+      redirect("/topics/" + data.name);
     }
   })
   const form = useForm<CreateTopicType>({
     resolver: zodResolver(createTopicSchema),
     defaultValues: {
-      title: "",
-      content: ""
+      name: "",
+      description: ""
     }
   })
 
@@ -36,7 +36,7 @@ export default function NewTopicPage({isTitle = true, onClose}:NewTopicProps) {
       {isTitle && <h1 className="text-xl text-center mt-20">创建话题</h1>}
       <form className="flex flex-col gap-3 w-full" onSubmit={form.handleSubmit(onSubmit)}>
         <Controller 
-        name="title"
+        name="name"
         control={form.control}
         render={({field, fieldState}) => (
           <Input 
@@ -50,7 +50,7 @@ export default function NewTopicPage({isTitle = true, onClose}:NewTopicProps) {
         )}
           />
         <Controller
-        name="content"
+        name="description"
         control={form.control}
         render={({field, fieldState}) => (
 
@@ -64,6 +64,8 @@ export default function NewTopicPage({isTitle = true, onClose}:NewTopicProps) {
 
         )}
         />
+      
+        {error && <Alert color={"warning"} title={error.message} />}
         <Button 
         className="w-full mt-4" 
         color="secondary" 

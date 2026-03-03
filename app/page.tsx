@@ -5,7 +5,7 @@ export default async function App() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1>话题</h1>
+        <h1>TOP话题</h1>
         <CreateButton />
       </div>
     </div>
