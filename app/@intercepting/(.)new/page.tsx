@@ -6,7 +6,9 @@ import CreateTopic from "@/app/new/page"
 export default function InterceptingNewPage() {
   return (
     <BackableModal>
-      <CreateTopic />
+      {({close}) => (
+        <CreateTopic isTitle={false} onClose={close}/>
+      )}
     </BackableModal>   
   )
 }

@@ -7,11 +7,9 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  Button
 } from "@heroui/react";
 
-export default function BackableModal(props: React.PropsWithChildren) {
+export default function BackableModal(props: {children: (args: {close: () => void}) => React.ReactNode}) {
     const { children } = props
     const router = useRouter()
 
@@ -30,16 +28,8 @@ export default function BackableModal(props: React.PropsWithChildren) {
             <>
               <ModalHeader className="flex flex-col gap-1">创建话题</ModalHeader>
               <ModalBody>
-                {children}
+                {children({close: onClose})}
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  取消
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  创建
-                </Button>
-              </ModalFooter>
             </>
           )}
         </ModalContent>

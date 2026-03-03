@@ -7,11 +7,16 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { trpcClientReact } from "@/trpc-caller/client";
 import { redirect } from "next/navigation"
 
+type NewTopicProps = {
+  isTitle?: boolean;
+  onClose?: () => void;
+}
 
-export default function NewTopicPage({isTitle = true}:{isTitle:boolean}) {
+export default function NewTopicPage({isTitle = true, onClose}:NewTopicProps) {
 
   const { isPending, mutate: createTopic } = trpcClientReact.topic.create.useMutation({
     onSuccess() {
+      onClose?.();
       redirect("/");
     }
   })
@@ -27,9 +32,9 @@ export default function NewTopicPage({isTitle = true}:{isTitle:boolean}) {
     createTopic(data);
   }
   return (
-    <div className="flex justify-center items-center">
-      {isTitle && <h1 className="text-xl text-center">创建话题</h1>}
-      <form className="max-w-sm" onSubmit={form.handleSubmit(onSubmit)}>
+    <div className="flex flex-col gap-4 justify-center items-center">
+      {isTitle && <h1 className="text-xl text-center mt-20">创建话题</h1>}
+      <form className="flex flex-col gap-3 w-full" onSubmit={form.handleSubmit(onSubmit)}>
         <Controller 
         name="title"
         control={form.control}
@@ -37,7 +42,7 @@ export default function NewTopicPage({isTitle = true}:{isTitle:boolean}) {
           <Input 
           {...field}
           label="话题"
-          labelPlacement="outside"
+          labelPlacement="outside-top"
           isInvalid={fieldState.invalid}
           errorMessage={fieldState.error?.message}
           />
@@ -52,7 +57,7 @@ export default function NewTopicPage({isTitle = true}:{isTitle:boolean}) {
           <Textarea
           {...field}
           label="话题内容"
-          labelPlacement="outside"
+          labelPlacement="outside-top"
           isInvalid={fieldState.invalid}
           errorMessage={fieldState.error?.message}
           />
@@ -65,7 +70,9 @@ export default function NewTopicPage({isTitle = true}:{isTitle:boolean}) {
         type="submit"
         isLoading={isPending}
         isDisabled={isPending}
-        >确认</Button>
+        >
+          确认
+        </Button>
       </form>
     </div>
   )
