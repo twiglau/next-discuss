@@ -42,3 +42,18 @@ export type VerificationToken = Prisma.VerificationTokenModel
  * 
  */
 export type Authenticator = Prisma.AuthenticatorModel
+/**
+ * Model Topic
+ * 
+ */
+export type Topic = Prisma.TopicModel
+/**
+ * Model Post
+ * 
+ */
+export type Post = Prisma.PostModel
+/**
+ * Model Comment
+ * 
+ */
+export type Comment = Prisma.CommentModel

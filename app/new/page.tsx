@@ -65,7 +65,7 @@ export default function NewTopicPage({isTitle = true, onClose}:NewTopicProps) {
         )}
         />
         <Button 
-        className="w-full" 
+        className="w-full mt-4" 
         color="secondary" 
         type="submit"
         isLoading={isPending}
