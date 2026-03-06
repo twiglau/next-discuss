@@ -8,12 +8,26 @@ export const postRouter = router({
     .input(createPostSchema)
     .mutation(async ({ ctx, input }) => {
       try {
+        const topic = await prisma.topic.findUnique({
+          where: {
+            name: input.name,
+          },
+        });
+        if (!topic) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "话题不存在",
+          });
+        }
         const post = await prisma.post.create({
           data: {
             title: input.title,
             content: input.content,
             userId: ctx.session.user.id,
-            topicId: input.topicId,
+            topicId: topic.id,
+          },
+          include: {
+            topic: true,
           },
         });
         return post;

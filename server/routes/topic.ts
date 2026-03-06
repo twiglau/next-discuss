@@ -8,6 +8,18 @@ export const topicRouter = router({
     .input(createTopicSchema)
     .mutation(async ({ ctx, input }) => {
       try {
+        // 如果名字已存在，返回错误
+        const existTopic = await prisma.topic.findUnique({
+          where: {
+            name: input.name,
+          },
+        });
+        if (existTopic) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Topic name already exists",
+          });
+        }
         const topic = await prisma.topic.create({
           data: {
             name: input.name,

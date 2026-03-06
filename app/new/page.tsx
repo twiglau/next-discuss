@@ -1,11 +1,10 @@
 "use client";
 
 import { createTopicSchema, type CreateTopicType } from "@/prisma/validate-schema";
-import { Alert, Button, Chip, Input, Select, SelectItem, Textarea } from "@heroui/react"
+import { Alert, Button, Input, Select, SelectItem, Textarea } from "@heroui/react"
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { trpcClientReact } from "@/trpc-caller/client";
-import { redirect } from "next/navigation"
 
 type NewTopicProps = {
   isTitle?: boolean;
@@ -16,8 +15,7 @@ export default function NewTopicPage({isTitle = true, onClose}:NewTopicProps) {
 
   const { isPending, mutate: createTopic, error } = trpcClientReact.topic.create.useMutation({
     onSuccess(data) {
-      onClose?.();
-      redirect("/topics/" + data.name);
+      location.href = "/topics/" + data.name;
     }
   })
   const form = useForm<CreateTopicType>({

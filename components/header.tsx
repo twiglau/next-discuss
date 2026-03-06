@@ -1,7 +1,7 @@
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@heroui/navbar";
 import {Input} from "@heroui/input";
 import UserAuth from "./user-auth";
-
+import {Link} from "@heroui/link";
 
 export const AcmeLogo = () => {
   return (
@@ -22,7 +22,7 @@ export default async function App() {
   
   return (
     <Navbar className="border-b-1 dark:border-gray-800">
-      <NavbarBrand>
+      <NavbarBrand as={Link} href="/">
         <AcmeLogo />
         <p className="font-bold text-inherit">Discuss</p>
       </NavbarBrand>

@@ -20,7 +20,7 @@ export default function CreateButton({children, path}: CreateButtonProps) {
      router.push(path)
   }
   return (
-    <Button color="secondary" variant="bordered"  onPress={onCreate}>
+    <Button className="ml-auto max-w-20" color="secondary" variant="bordered"  onPress={onCreate}>
       {children}
     </Button>
   )
