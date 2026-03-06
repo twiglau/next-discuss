@@ -15,20 +15,25 @@ export type PostFormState = {
   };
 };
 export async function createPost(
+  name: string,
   prevStatus: PostFormState,
   formData: FormData,
 ) {
   let post: Post | undefined;
-  const name = formData.get("name") as string;
   try {
     const session = await auth();
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
-    const info = createPostSchema.safeParse({ name, title, content });
+    // 只需要校验 title,content
+    const info = createPostSchema.safeParse({ title, content });
     if (!info.success) {
       return { errors: info.error.flatten().fieldErrors };
     }
-    post = await trpcServerCaller({ session }).post.create(info.data);
+    // 创建时，需要name
+    post = await trpcServerCaller({ session }).post.create({
+      ...info.data,
+      name,
+    });
     console.log("post创建成功", post);
   } catch (error) {
     console.log("post创建失败", error);

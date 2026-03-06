@@ -10,7 +10,7 @@ export const createTopicSchema = z.object({
 export type CreateTopicType = z.infer<typeof createTopicSchema>;
 
 export const createPostSchema = z.object({
-  name: z.string(),
+  name: z.string().optional(),
   title: z.string().min(2, "标题不能低于2位"),
   content: z
     .string()

@@ -17,14 +17,14 @@ export default function NewPostPage({isTitle = true, onClose}:NewPostProps) {
  const searchParams = useSearchParams();
  const name = searchParams.get("name");
  const [_, startTransition] = React.useTransition();
- const [status, action, isPending] = React.useActionState<PostFormState, FormData>(createPost, {errors:{}});
+ const [status, action, isPending] = React.useActionState<PostFormState, FormData>(createPost.bind(null, name as string), {errors:{}});
 
  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   // e => FormData
   // FormData中需要加入name
   const formData = new FormData(e.target as HTMLFormElement);
-  formData.append("name", name as string);
+  
   startTransition(async () => {
     await action(formData);
   })
