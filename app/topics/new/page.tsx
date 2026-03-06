@@ -21,10 +21,8 @@ export default function NewPostPage({isTitle = true, onClose}:NewPostProps) {
 
  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  // e => FormData
-  // FormData中需要加入name
   const formData = new FormData(e.target as HTMLFormElement);
-  
+
   startTransition(async () => {
     await action(formData);
   })

@@ -24,7 +24,7 @@ export default function NewTopicPage({isTitle = true, onClose}:NewTopicProps) {
       name: "",
       description: "",
       tag: "default"
-    }
+    }     
   })
 
   const onSubmit: SubmitHandler<CreateTopicType> = (data) => {
