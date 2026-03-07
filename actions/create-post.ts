@@ -4,7 +4,7 @@ import { trpcServerCaller } from "@/trpc-caller/server";
 import { createPostSchema } from "@/prisma/validate-schema";
 import { auth } from "@/server/auth";
 import { redirect } from "next/navigation";
-import { Post } from "@/server/db/prisma";
+import { Post } from "@/prisma/db";
 
 export type PostFormState = {
   errors: {

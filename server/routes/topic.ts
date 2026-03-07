@@ -1,6 +1,6 @@
 import { createTopicSchema } from "@/prisma/validate-schema";
 import { protectedProcedure, router } from "@/server/trpc";
-import { prisma } from "@/server/db/prisma";
+import { prisma } from "@/prisma/db";
 import { TRPCError } from "@trpc/server";
 
 export const topicRouter = router({
