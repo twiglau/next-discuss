@@ -49,7 +49,7 @@ export const postRouter = router({
         postId: z.string(),
       }),
     )
-    .mutation(async ({ input }) => {
+    .query(async ({ input }) => {
       try {
         const post = await prisma.post.findUnique({
           where: { id: input.postId },
@@ -72,7 +72,7 @@ export const postRouter = router({
         name: z.string(),
       }),
     )
-    .mutation(async ({ ctx, input }) => {
+    .query(async ({ ctx, input }) => {
       try {
         const posts = await prisma.post.findMany({
           where: {
@@ -104,7 +104,7 @@ export const postRouter = router({
         });
       }
     }),
-  getTop5List: protectedProcedure.mutation(async () => {
+  getTop5List: protectedProcedure.query(async () => {
     try {
       const posts = await prisma.post.findMany({
         orderBy: {

@@ -3,14 +3,18 @@ import { createCommentSchema, CreateCommentType } from "@/prisma/validate-schema
 import { trpcClientReact } from "@/trpc-caller/client";
 import { Button, Textarea } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+
 
 
 export default function CommentForm({postId, commentId}: Omit<CreateCommentType, "content">) {
 
+    const router = useRouter();
     const {mutate: createComment,isPending} = trpcClientReact.comment.create.useMutation({
         onSuccess: () => {
             form.reset()
+            router.refresh();
         }
     })
     const form = useForm<CreateCommentType>({

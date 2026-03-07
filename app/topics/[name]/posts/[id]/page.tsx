@@ -1,4 +1,5 @@
 import CommentForm from "@/components/comment-form";
+import CommentList from "@/components/comment-list";
 import Postbox from "@/components/post-box";
 import PostboxLoading from "@/components/post-box-loading";
 import { Suspense } from "react";
@@ -18,5 +19,6 @@ export default async function PostDetailPage({params}: PostDetailPageProps) {
             <Postbox postId={id} />
         </Suspense>
         <CommentForm postId={id} />
+        <CommentList postId={id} />
     </div>
 }

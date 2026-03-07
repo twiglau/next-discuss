@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { Post } from "./db";
+import { Post, Comment } from "./db";
+
 export const createTopicSchema = z.object({
   name: z.string().min(2, "标题不能低于2位"),
   tag: z.string().min(2, "标签不能低于2位"),
@@ -40,3 +41,13 @@ export const createCommentSchema = z.object({
 });
 
 export type CreateCommentType = z.infer<typeof createCommentSchema>;
+
+export type CommentListType = {
+  user: {
+    name: string | null;
+    image?: string | null;
+  };
+  post: {
+    title: string;
+  };
+} & Comment;
