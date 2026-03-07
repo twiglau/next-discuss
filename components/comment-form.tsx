@@ -13,6 +13,7 @@ export default function CommentForm({postId, commentId}: Omit<CreateCommentType,
     const router = useRouter();
     const {mutate: createComment,isPending} = trpcClientReact.comment.create.useMutation({
         onSuccess: () => {
+            console.log("[Client] Comment created successfully, calling router.refresh()");
             form.reset()
             router.refresh();
         }
@@ -26,6 +27,7 @@ export default function CommentForm({postId, commentId}: Omit<CreateCommentType,
         }
     })
     const onSubmit: SubmitHandler<CreateCommentType> = (data) => {
+        console.log("[Client] Submitting comment:", data);
         createComment(data)
     }
     return <form className="space-y-2" onSubmit={form.handleSubmit(onSubmit)}>
