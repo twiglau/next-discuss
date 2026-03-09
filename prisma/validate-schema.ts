@@ -47,7 +47,9 @@ export type CommentListType = {
     name: string | null;
     image?: string | null;
   };
-  post: {
-    title: string;
+  _count: {
+    children: number;
   };
-} & Comment;
+  createdAt: string;
+  updatedAt: string;
+} & Omit<Comment, "createdAt" | "updatedAt">;
