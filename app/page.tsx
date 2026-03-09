@@ -1,6 +1,6 @@
 import CreateButton from "@/components/create-button";
 import TopicList from "@/components/topic-list";
-import PostList from "@/components/post-list";
+import PostList from "@/components/post/post-list";
 import { trpcServerCaller } from "@/trpc-caller/server";
 
 

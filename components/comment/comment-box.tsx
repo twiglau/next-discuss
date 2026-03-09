@@ -1,16 +1,15 @@
 
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Avatar } from "@heroui/avatar";
-import { CommentListType } from "@/prisma/validate-schema";
+import { CommentListWithChildren } from "@/prisma/validate-schema";
 import { CommentReplyProvider, CommentReplyTrigger, CommentReplyForm } from "./comment-reply-wrapper";
 import CommentBranchLoader from "./comment-branch-loader";
+import { format } from "date-fns";
 
-export type CommentWithChildren = CommentListType & {
-  children?: CommentListType[];
-};
+
 
 type CommentBoxProps = {
-  comment: CommentWithChildren;
+  comment: CommentListWithChildren;
   depth?: number;
 }
 
@@ -32,7 +31,7 @@ export default function CommentBox({ comment, depth = 0 }: CommentBoxProps) {
               />
               <div className="flex flex-col gap-0 items-start justify-center">
                 <h4 className="text-small font-semibold leading-none text-default-600">{comment.user.name}</h4>
-                <h5  className="text-tiny tracking-tight text-default-400">{comment.createdAt}</h5>
+                <h5  className="text-tiny tracking-tight text-default-400">{format(comment.createdAt,"PPP")}</h5>
               </div>
             </div>
             <CommentReplyTrigger />
@@ -53,7 +52,6 @@ export default function CommentBox({ comment, depth = 0 }: CommentBoxProps) {
                {(depth >= 2 || loadedRepliesCount < totalReplies) && totalReplies > 0 && (
                  <CommentBranchLoader 
                    parentId={comment.id} 
-                   postId={comment.postId} 
                    initialDepth={depth + 1}
                    totalReplies={totalReplies}
                    alreadyLoadedCount={depth < 2 ? loadedRepliesCount : 0}

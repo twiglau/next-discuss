@@ -8,7 +8,6 @@ import { CommentListType } from "@/prisma/validate-schema";
 
 type CommentBranchLoaderProps = {
   parentId: string;
-  postId: string;
   initialDepth: number;
   totalReplies: number;
   alreadyLoadedCount: number;
@@ -16,7 +15,6 @@ type CommentBranchLoaderProps = {
 
 export default function CommentBranchLoader({
   parentId,
-  postId,
   initialDepth,
   totalReplies,
   alreadyLoadedCount,
@@ -26,7 +24,7 @@ export default function CommentBranchLoader({
   const [loading, setLoading] = useState(false);
   const [hasLoadedInitially, setHasLoadedInitially] = useState(alreadyLoadedCount > 0);
 
-  const pageSize = 5;
+  const pageSize = 2;
   const remainingCount = totalReplies - (alreadyLoadedCount + replies.length);
 
   const loadMore = async () => {

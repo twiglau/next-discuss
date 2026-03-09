@@ -12,7 +12,7 @@ export default async function CommentList({
 }) {
   console.log(`[Server Component] Rendering CommentList for post: ${postId}, page: ${page}`);
   
-  const pageSize = 10;
+  const pageSize = 5;
   const { totalRoots, roots } = await trpcServerCaller({}).comment.getCommentTree({
     postId,
     page,

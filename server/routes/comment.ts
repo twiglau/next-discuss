@@ -1,6 +1,10 @@
 import { prisma } from "@/prisma/db";
 import { protectedProcedure, router } from "../trpc";
-import { createCommentSchema } from "@/prisma/validate-schema";
+import {
+  CommentListType,
+  CommentListWithChildren,
+  createCommentSchema,
+} from "@/prisma/validate-schema";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { cache } from "react";
@@ -137,7 +141,7 @@ export const commentRouter = router({
 
       // 3. 批量获取这些 Level 1 评论的子评论 (Level 2)
       const level1Ids = level1Comments.map((c) => c.id);
-      let level2Comments: any[] = [];
+      let level2Comments: CommentListType[] = [];
       if (level1Ids.length > 0) {
         level2Comments = await prisma.comment.findMany({
           where: { parentId: { in: level1Ids } },
@@ -151,13 +155,13 @@ export const commentRouter = router({
 
       // 4. 构建树结构 (手动挂载)
       const allComments = [...level1Comments, ...level2Comments];
-      const commentMap = new Map();
+      const commentMap = new Map<string, CommentListWithChildren>();
       allComments.forEach((c) => commentMap.set(c.id, { ...c, children: [] }));
 
       // 将 Level 2 挂到 Level 1
       level2Comments.forEach((c) => {
-        const parent = commentMap.get(c.parentId);
-        if (parent) parent.children.push(commentMap.get(c.id));
+        const parent = commentMap.get(c.parentId!);
+        if (parent) parent.children!.push(commentMap.get(c.id)!);
       });
 
       // 将 Level 1 挂到根评论

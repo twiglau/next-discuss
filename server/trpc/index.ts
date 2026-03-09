@@ -1,8 +1,10 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import { auth } from "../auth";
-import { deepFormatDates } from "../utils/date-utils";
+import superjson from "superjson";
 
-const t = initTRPC.create();
+const t = initTRPC.create({
+  transformer: superjson,
+});
 const { router, procedure } = t;
 
 const loggedMiddleware = t.middleware(async ({ next, ctx }) => {
@@ -22,27 +24,10 @@ const withSessionMiddleware = t.middleware(async ({ next, ctx }) => {
   });
 });
 
-/**
- * 自动转换所有返回结果中的 Date 到 String
- */
-const responseFormatMiddleware = t.middleware(async ({ next }) => {
-  const result = await next();
-  if (result.ok && result.data) {
-    return {
-      ...result,
-      data: deepFormatDates(result.data),
-    };
-  }
-  return result;
-});
-
-const withLoggerProcedure = procedure
-  .use(loggedMiddleware)
-  .use(responseFormatMiddleware);
+const withLoggerProcedure = procedure.use(loggedMiddleware);
 
 const protectedProcedure = procedure
   .use(loggedMiddleware)
-  .use(responseFormatMiddleware)
   .use(withSessionMiddleware)
   .use(async ({ ctx, next }) => {
     if (!ctx.session?.user) {

@@ -50,6 +50,8 @@ export type CommentListType = {
   _count: {
     children: number;
   };
-  createdAt: string;
-  updatedAt: string;
-} & Omit<Comment, "createdAt" | "updatedAt">;
+} & Comment;
+
+export type CommentListWithChildren = CommentListType & {
+  children?: CommentListType[];
+};
