@@ -20,11 +20,11 @@ export default function CommentBranchLoader({
   alreadyLoadedCount,
 }: CommentBranchLoaderProps) {
   const [replies, setReplies] = useState<CommentListType[]>([]);
-  const [page, setPage] = useState(1);
+  const pageSize = 5;
+  const [page, setPage] = useState(Math.floor(alreadyLoadedCount / pageSize) + 1);
   const [loading, setLoading] = useState(false);
   const [hasLoadedInitially, setHasLoadedInitially] = useState(alreadyLoadedCount > 0);
 
-  const pageSize = 2;
   const remainingCount = totalReplies - (alreadyLoadedCount + replies.length);
 
   const loadMore = async () => {
@@ -46,7 +46,7 @@ export default function CommentBranchLoader({
     }
   };
 
-  if (remainingCount <= 0 && hasLoadedInitially) {
+  if (remainingCount <= 0 && replies.length === 0 && !hasLoadedInitially) {
     return null;
   }
 

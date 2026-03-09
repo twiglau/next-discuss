@@ -18,6 +18,7 @@ export default function CommentBox({ comment, depth = 0 }: CommentBoxProps) {
     const totalReplies = comment._count?.children || 0;
     const loadedRepliesCount = comment.children?.length || 0;
 
+
     return (
       <CommentReplyProvider>
         <Card className="w-full py-2 border-none shadow-none bg-transparent">

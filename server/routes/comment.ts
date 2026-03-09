@@ -104,14 +104,14 @@ export const commentRouter = router({
       z.object({
         postId: z.string(),
         page: z.number().default(1),
-        pageSize: z.number().default(10),
+        pageSize: z.number().default(5),
       }),
     )
     .query(async ({ input }) => {
       const { postId, page, pageSize } = input;
       const skip = (page - 1) * pageSize;
 
-      // 1. 分页获取根评论
+      // 1. 分页获取根评论 (Level 0)
       const [totalRoots, roots] = await Promise.all([
         prisma.comment.count({ where: { postId, parentId: null } }),
         prisma.comment.findMany({
@@ -128,47 +128,62 @@ export const commentRouter = router({
 
       if (roots.length === 0) return { roots: [], totalRoots };
 
-      // 2. 批量获取这些根评论的子评论 (Level 1)
-      const rootIds = roots.map((r) => r.id);
-      const level1Comments = await prisma.comment.findMany({
-        where: { parentId: { in: rootIds } },
-        orderBy: { createdAt: "asc" },
-        include: {
-          user: { select: { name: true, image: true } },
-          _count: { select: { children: true } },
-        },
-      });
+      // 2. 批量获取 Level 1 评论 (每个根评论取前 5 条)
+      const level1Results = await Promise.all(
+        roots.map((root) =>
+          prisma.comment.findMany({
+            where: { parentId: root.id },
+            orderBy: { createdAt: "asc" },
+            take: 5,
+            include: {
+              user: { select: { name: true, image: true } },
+              _count: { select: { children: true } },
+            },
+          }),
+        ),
+      );
+      const level1Comments = level1Results.flat();
 
-      // 3. 批量获取这些 Level 1 评论的子评论 (Level 2)
-      const level1Ids = level1Comments.map((c) => c.id);
+      // 3. 批量获取 Level 2 评论 (每个 Level 1 评论取前 5 条)
       let level2Comments: CommentListType[] = [];
-      if (level1Ids.length > 0) {
-        level2Comments = await prisma.comment.findMany({
-          where: { parentId: { in: level1Ids } },
-          orderBy: { createdAt: "asc" },
-          include: {
-            user: { select: { name: true, image: true } },
-            _count: { select: { children: true } },
-          },
-        });
+      if (level1Comments.length > 0) {
+        const level2Results = await Promise.all(
+          level1Comments.map((c) =>
+            prisma.comment.findMany({
+              where: { parentId: c.id },
+              orderBy: { createdAt: "asc" },
+              take: 5,
+              include: {
+                user: { select: { name: true, image: true } },
+                _count: { select: { children: true } },
+              },
+            }),
+          ),
+        );
+        level2Comments = level2Results.flat();
       }
 
-      // 4. 构建树结构 (手动挂载)
-      const allComments = [...level1Comments, ...level2Comments];
+      // 4. 构建树结构
       const commentMap = new Map<string, CommentListWithChildren>();
-      allComments.forEach((c) => commentMap.set(c.id, { ...c, children: [] }));
 
-      // 将 Level 2 挂到 Level 1
+      // 先放入 Level 2 到 Map
       level2Comments.forEach((c) => {
-        const parent = commentMap.get(c.parentId!);
-        if (parent) parent.children!.push(commentMap.get(c.id)!);
+        commentMap.set(c.id, { ...c, children: [] });
+      });
+
+      // 处理 Level 1 并挂载 Level 2
+      const processedLevel1 = level1Comments.map((c) => {
+        const children = level2Comments
+          .filter((l2) => l2.parentId === c.id)
+          .map((l2) => commentMap.get(l2.id)!);
+        const node = { ...c, children };
+        commentMap.set(c.id, node);
+        return node;
       });
 
       // 将 Level 1 挂到根评论
       const treeRoots = roots.map((root) => {
-        const children = level1Comments
-          .filter((c) => c.parentId === root.id)
-          .map((c) => commentMap.get(c.id));
+        const children = processedLevel1.filter((c) => c.parentId === root.id);
         return { ...root, children };
       });
 
