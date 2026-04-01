@@ -1,7 +1,6 @@
 import { trpcServerCaller } from "@/trpc-caller/server"
 import { auth } from "@/server/auth";
-import { Chip, type ChipProps } from "@heroui/chip";
-import { Badge } from "@heroui/badge";
+import { Chip, type ChipProps, Badge } from "@heroui/react";
 import Link from "next/link";
 
 
@@ -13,8 +12,7 @@ export default async function TopicList() {
             {topics.map((topic) => (
                 <div key={topic.id}>
                     <Badge 
-                    content={topic._count.posts} 
-                    shape="rectangle" 
+                    content={topic._count.posts.toString()} 
                     color="danger" 
                     placement="top-right">
                       <Chip 

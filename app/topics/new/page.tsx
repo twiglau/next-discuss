@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-import { Button } from "@heroui/button"
-import { Alert } from "@heroui/alert"
-import { Input, Textarea} from "@heroui/input"
+import { Button, Alert, Input, TextArea } from "@heroui/react";
 import { createPost, type PostFormState } from "@/actions";
 import { useSearchParams } from "next/navigation";
 
@@ -39,7 +37,7 @@ export default function NewPostPage({isTitle = true, onClose}:NewPostProps) {
           isInvalid={!!status.errors.title}
           errorMessage={status.errors.title?.join(",")}
           />
-        <Textarea
+        <TextArea
           name="content"
           label="帖子内容"
           labelPlacement="outside-top"

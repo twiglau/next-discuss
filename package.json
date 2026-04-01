@@ -5,12 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8999",
     "lint": "eslint"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",
-    "@heroui/react": "^2.8.9",
+    "@heroui/react": "^3.0.1",
+    "@heroui/styles": "^3.0.1",
     "@hookform/resolvers": "^5.2.2",
     "@prisma/adapter-better-sqlite3": "^7.4.2",
     "@prisma/client": "^7.4.2",

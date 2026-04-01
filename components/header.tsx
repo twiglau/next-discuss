@@ -1,7 +1,6 @@
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@heroui/navbar";
-import {Input} from "@heroui/input";
+import {Input} from "@heroui/react";
 import UserAuth from "./user-auth";
-import {Link} from "@heroui/link";
+import {Link} from "@heroui/react";
 
 export const AcmeLogo = () => {
   return (
@@ -21,19 +20,19 @@ export default async function App() {
   // let userInfo: React.ReactNode = null
   
   return (
-    <Navbar className="border-b-1 dark:border-gray-800">
-      <NavbarBrand as={Link} href="/">
+    <nav className="flex items-center justify-between px-6 py-4 border-b-1 dark:border-gray-800">
+      <Link href="/" className="flex items-center gap-2">
         <AcmeLogo />
         <p className="font-bold text-inherit">Discuss</p>
-      </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
+      </Link>
+      <div className="hidden sm:flex gap-4 flex-1 justify-center">
+        <div>
           <Input placeholder="Search" />
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarContent justify="end">
+        </div>
+      </div>
+      <div className="flex justify-end flex-none">
         <UserAuth />
-      </NavbarContent>
-    </Navbar>
+      </div>
+    </nav>
   );
 }

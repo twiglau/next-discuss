@@ -1,6 +1,5 @@
 
-import { Card, CardBody, CardHeader } from "@heroui/card";
-import { Avatar } from "@heroui/avatar";
+import { Card, CardContent, CardHeader, Avatar } from "@heroui/react";
 import { CommentListWithChildren } from "@/prisma/validate-schema";
 import { CommentReplyProvider, CommentReplyTrigger, CommentReplyForm } from "./comment-reply-wrapper";
 import CommentBranchLoader from "./comment-branch-loader";
@@ -25,11 +24,11 @@ export default function CommentBox({ comment, depth = 0 }: CommentBoxProps) {
           <CardHeader className="justify-between px-3 py-2">
             <div className="flex gap-3">
               <Avatar
-                isBordered
-                radius="full"
-                size="sm"
-                src={comment.user.image || ""}
-              />
+              size="sm"
+              >
+                <Avatar.Image  src={comment.user.image || ""} alt={comment.user.name || ""} />
+                <Avatar.Fallback>{comment.user.name}</Avatar.Fallback>
+              </Avatar>
               <div className="flex flex-col gap-0 items-start justify-center">
                 <h4 className="text-small font-semibold leading-none text-default-600">{comment.user.name}</h4>
                 <h5  className="text-tiny tracking-tight text-default-400">{format(comment.createdAt,"PPP")}</h5>
@@ -37,7 +36,7 @@ export default function CommentBox({ comment, depth = 0 }: CommentBoxProps) {
             </div>
             <CommentReplyTrigger />
           </CardHeader>
-          <CardBody className="px-3 py-0 text-small text-default-600 space-y-3 pl-12">
+          <CardContent className="px-3 py-0 text-small text-default-600 space-y-3 pl-12">
             <p className="">{comment.content || ""}</p>
             <CommentReplyForm postId={comment.postId} commentId={comment.id} />
             
@@ -59,7 +58,7 @@ export default function CommentBox({ comment, depth = 0 }: CommentBoxProps) {
                  />
                )}
             </div>
-          </CardBody>
+          </CardContent>
         </Card>
       </CommentReplyProvider>
     )

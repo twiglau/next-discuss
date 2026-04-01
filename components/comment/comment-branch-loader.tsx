@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "@heroui/button";
+import { Button } from "@heroui/react";
 import { trpcPureClient } from "@/trpc-caller/client";
 import CommentBox from "./comment-box";
 import { CommentListType } from "@/prisma/validate-schema";
@@ -60,10 +60,10 @@ export default function CommentBranchLoader({
       {/* 加载更多按钮 */}
       {remainingCount > 0 && (
         <Button
-          variant="light"
+          variant="ghost"
           size="sm"
+          isPending={loading}
           onPress={loadMore}
-          isLoading={loading}
           className="text-primary font-medium"
         >
           {loading ? "加载中..." : !hasLoadedInitially ? `查看回复 (${remainingCount})` : `更多回复 (${remainingCount})`}

@@ -14,5 +14,4 @@ const TrpcProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     );
 };
 
-
 export default TrpcProvider;

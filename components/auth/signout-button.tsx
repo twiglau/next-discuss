@@ -1,5 +1,5 @@
 
-import {Button} from "@heroui/button"; 
+import {Button} from "@heroui/react"; 
 import { signOutAction } from "@/actions";
 
 export default function SignOut() {
@@ -7,7 +7,7 @@ export default function SignOut() {
     <form
       action={signOutAction}
     >
-      <Button type="submit" color="secondary">Sign out</Button>
+      <Button type="submit" variant="secondary">Sign out</Button>
     </form>
   )
 }
